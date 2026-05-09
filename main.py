@@ -7,6 +7,12 @@ Bootstrap and parametric confidence intervals for time series predictions.
 import sys
 from pathlib import Path
 
+import logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 # Add src to path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
@@ -47,12 +53,12 @@ def main():
         value_column=config["data"].get("value_col", "value")
     )
     
-    print(f"Loaded {len(series)} data points")
+    logger.info(f"Loaded {len(series)} data points")
     
     # Split train/test using consolidated evaluator
     evaluator = Evaluator(test_size=config.get("evaluation", {}).get("test_size", 0.2))
     train, test = evaluator.split(series)
-    print(f"Train: {len(train)} points, Test: {len(test)} points")
+    logger.info(f"Train: {len(train)} points, Test: {len(test)} points")
     
     # Model parameters
     arima_order = tuple(config["model"]["arima_order"])
@@ -62,7 +68,7 @@ def main():
     
     # Generate bootstrap CI using consolidated utility
     if config["model"].get("use_bootstrap", True):
-        print(f"\nGenerating bootstrap confidence intervals (n={n_bootstrap})...")
+        logger.info(f"\nGenerating bootstrap confidence intervals (n={n_bootstrap})...")
         
         # Create model fit function
         def fit_arima(data):
@@ -95,7 +101,7 @@ def main():
         valid_idx = ~bootstrap_aligned.isna() & ~test.isna()
         if valid_idx.sum() > 0:
             metrics = evaluator.evaluate(bootstrap_aligned[valid_idx], test[valid_idx])
-            print(f"Bootstrap Forecast - RMSE: {metrics['RMSE']:.4f}")
+            logger.info(f"Bootstrap Forecast - RMSE: {metrics['RMSE']:.4f}")
         
         # Plot
         fig, ax = create_forecast_plot(
@@ -109,11 +115,11 @@ def main():
         
         output_dir = ensure_output_dir(get_output_dir(config, script_dir))
         save_plot(fig, output_dir / "bootstrap_ci.png", dpi=300)
-        print(f"Plot saved to: {output_dir / 'bootstrap_ci.png'}")
+        logger.info(f"Plot saved to: {output_dir / 'bootstrap_ci.png'}")
     
     # Generate parametric CI using consolidated utility
     if config["model"].get("use_parametric", True):
-        print("\nGenerating parametric confidence intervals...")
+        logger.info("\nGenerating parametric confidence intervals...")
         
         model = ARIMA(train.values, order=arima_order).fit()
         mean_param, lower_param, upper_param = parametric_confidence_intervals(
@@ -140,7 +146,7 @@ def main():
         valid_idx = ~parametric_aligned.isna() & ~test.isna()
         if valid_idx.sum() > 0:
             metrics = evaluator.evaluate(parametric_aligned[valid_idx], test[valid_idx])
-            print(f"Parametric Forecast - RMSE: {metrics['RMSE']:.4f}")
+            logger.info(f"Parametric Forecast - RMSE: {metrics['RMSE']:.4f}")
         
         # Plot
         fig, ax = create_forecast_plot(
@@ -154,9 +160,9 @@ def main():
         
         output_dir = ensure_output_dir(get_output_dir(config, script_dir))
         save_plot(fig, output_dir / "parametric_ci.png", dpi=300)
-        print(f"Plot saved to: {output_dir / 'parametric_ci.png'}")
+        logger.info(f"Plot saved to: {output_dir / 'parametric_ci.png'}")
     
-    print("\n Confidence interval analysis complete")
+    logger.info("\n Confidence interval analysis complete")
     
     if config.get("plotting", {}).get("show_plot", True):
         plt.show()
