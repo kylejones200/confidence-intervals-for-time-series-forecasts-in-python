@@ -2,11 +2,11 @@
 
 All forecasts contain uncertainty. Point predictions provide the best estimate of future values and confidence intervals help quantify the range of likely outcomes. As we make predictions further into the future, uncertainty increases due to:
 
-- **Model Uncertainty:** Inaccuracies inherent in the model's assumptions and structure.
+- Model Uncertainty: Inaccuracies inherent in the model's assumptions and structure.
 
-- **Parameter Uncertainty:** Variability in estimated parameters, impacting model predictions.
+- Parameter Uncertainty: Variability in estimated parameters, impacting model predictions.
 
-- **Randomness:** Inherent randomness in the system being modeled.
+- Randomness: Inherent randomness in the system being modeled.
 
 Confidence intervals quantify this uncertainty and allow us to communicate the range of potential outcomes clearly and effectively.
 
@@ -99,15 +99,15 @@ Confidence intervals require careful interpretation:
 
 # Best Practices for Using Confidence Intervals
 
-- **Contextual Interpretation:** Interpret confidence intervals in the context of the dataset and application.
+- Contextual Interpretation: Interpret confidence intervals in the context of the dataset and application.
 
-- **Assumptions and Limitations:** Clearly communicate underlying assumptions (e.g., normality, stationarity).
+- Assumptions and Limitations: Clearly communicate underlying assumptions (e.g., normality, stationarity).
 
-- **Visualization:** Use effective visualizations (e.g., shaded regions, error bars) to make uncertainty intuitive and accessible.
+- Visualization: Use effective visualizations (e.g., shaded regions, error bars) to make uncertainty intuitive and accessible.
 
-- **Multiple Confidence Levels:** Consider multiple confidence levels (e.g., 80% and 95%) for a nuanced view of uncertainty.
+- Multiple Confidence Levels: Consider multiple confidence levels (e.g., 80% and 95%) for a nuanced view of uncertainty.
 
-- **Ongoing Validation:** Regularly validate confidence intervals against out-of-sample data to ensure well-calibrated predictions.
+- Ongoing Validation: Regularly validate confidence intervals against out-of-sample data to ensure well-calibrated predictions.
 
 Confidence intervals enhance the interpretability and reliability of time series forecasts by quantifying uncertainty. Whether using ARIMA's built-in intervals or bootstrapped methods, confidence intervals provide a range of likely outcomes, enabling better decision-making and risk management.
 
@@ -115,7 +115,7 @@ By understanding and communicating the assumptions behind confidence intervals a
 
 ## Key Takeaways
 
-- **Model Uncertainty:** Inaccuracies inherent in the model's assumptions and structure.
-- **Parameter Uncertainty:** Variability in estimated parameters, impacting model predictions.
-- **Randomness:** Inherent randomness in the system being modeled.
+- Model Uncertainty: Inaccuracies inherent in the model's assumptions and structure.
+- Parameter Uncertainty: Variability in estimated parameters, impacting model predictions.
+- Randomness: Inherent randomness in the system being modeled.
 - A 95% confidence interval does not mean there is a 95% probability that the true value will fall within the interval.
