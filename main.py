@@ -4,7 +4,6 @@ Confidence Intervals for Time Series Forecasts
 Bootstrap and parametric confidence intervals for time series predictions.
 """
 
-import sys
 from pathlib import Path
 
 import logging
@@ -16,7 +15,6 @@ logger = logging.getLogger(__name__)
 # Add src to path
 
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 
 # Import consolidated utilities (signalplot already applied in src/__init__.py)
@@ -34,7 +32,6 @@ from statsmodels.tsa.arima.model import ARIMA
 from src.confidence_intervals import (
     bootstrap_confidence_intervals,
     parametric_confidence_intervals,
-    compare_ci_methods,
 )
 
 
